@@ -81,7 +81,7 @@ curl --location 'localhost/api/v1/calculate' \
 curl --location 'localhost/api/v1/calculate' \
 --header 'Content-Type: application/json' \
 --data '{
-  "expression": "(2+2"
+  "somethingDiff": "what?"
 }'
 ```
 
@@ -101,7 +101,7 @@ curl --location 'localhost/api/v1/calculate' \
 go run ./cmd/calc_service/...
 ```
 
-После запуска сервис будет доступен на `http://localhost` по указанному эндпоинту `/api/v1/calculate`.
+После запуска сервис будет доступен на `http://localhost:8080` по указанному эндпоинту `/api/v1/calculate`.
 
 ---
 
@@ -136,13 +136,5 @@ project-root/
 
 ---
 
-## Контрибьюция
-Если вы хотите улучшить проект или добавить новую функциональность:
-1. Сделайте форк репозитория.
-2. Создайте ветку с новой функциональностью: `git checkout -b feature/new-feature`.
-3. Отправьте пул-реквест на рассмотрение.
-
----
-
-## Лицензия
-Проект распространяется под лицензией MIT.
+## Автор
+vizurth
