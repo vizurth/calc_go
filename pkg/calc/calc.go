@@ -135,24 +135,24 @@ LOOP:		for _, elem := range expressionByte[i+1:]{
 		}
 		// 10 + ))10
 		if (openingBrakets > 0 && closingBrakets == 0) || (openingBrakets == 0 && closingBrakets > 0) || ((openingBrakets+closingBrakets)%2 != 0){
-			return 0, fmt.Errorf("some error")
+			return 0, fmt.Errorf("Expression is not valid")
 		}
 		if string(numStr) != ""{
 			stack = append(stack, string(numStr))
 		}
 		if strings.Contains("+-/*", stack[0]) || strings.Contains("+-/*", stack[len(stack)-1]){
-			return 0, fmt.Errorf("some error")
+			return 0, fmt.Errorf("Expression is not valid")
 		}
 		if len(stack) < 3{
-			return 0, fmt.Errorf("some error")
+			return 0, fmt.Errorf("Expression is not valid")
 		}
 		resSlice, err := findSolution(stack)
 		if err != nil{
-			return 0, fmt.Errorf("some error") 
+			return 0, fmt.Errorf("Expression is not valid")
 		}
 		result, _ := strconv.ParseFloat(resSlice[0],64)
 		return result, nil
 	} else {
-		return 0, fmt.Errorf("some error")
+		return 0, fmt.Errorf("Expression is not valid")
 	}
 }
