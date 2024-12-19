@@ -117,15 +117,15 @@ go run ./cmd/calc_service/...
 calc_go/
 ├── cmd/
 │   └── calc_service/
-│       └── main.go        # Точка входа
+│       └── main.go
 ├── internal/
-│   └── application/        # Логика вычисления выражений
-│   		└── application.go         # Обработчики HTTP-запросов
+│   └── application/ 
+│       └── application.go 
 ├── pkg/
-│		└── calc/
-│				├── calc_test.go
-│				└── calc.go
-└── README.md              # Описание проекта
+│   └── calc/
+│       ├── calc_test.go
+│       └── calc.go
+└── README.md 
 ```
 
 ---
