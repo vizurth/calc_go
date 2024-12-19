@@ -44,7 +44,7 @@
 ### 1. Успешный запрос
 **Запрос**:
 ```bash
-curl --location 'localhost/api/v1/calculate' \
+curl --location 'localhost:8080/api/v1/calculate' \
 --header 'Content-Type: application/json' \
 --data '{
   "expression": "2+2*2"
@@ -61,7 +61,7 @@ curl --location 'localhost/api/v1/calculate' \
 ### 2. Некорректное выражение (код 422)
 **Запрос**:
 ```bash
-curl --location 'localhost/api/v1/calculate' \
+curl --location 'localhost:8080/api/v1/calculate' \
 --header 'Content-Type: application/json' \
 --data '{
   "expression": "2+2*a"
@@ -78,7 +78,7 @@ curl --location 'localhost/api/v1/calculate' \
 ### 3. Внутренняя ошибка сервера (код 500)
 **Запрос**:
 ```bash
-curl --location 'localhost/api/v1/calculate' \
+curl --location 'localhost:8080/api/v1/calculate' \
 --header 'Content-Type: application/json' \
 --data '{
   "somethingDiff": "what?"
