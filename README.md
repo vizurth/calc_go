@@ -114,13 +114,17 @@ go run ./cmd/calc_service/...
 
 ## Структура проекта
 ```
-project-root/
+calc_go/
 ├── cmd/
 │   └── calc_service/
 │       └── main.go        # Точка входа
 ├── internal/
-│   ├── calculator/        # Логика вычисления выражений
-│   └── handlers/          # Обработчики HTTP-запросов
+│   └── application/        # Логика вычисления выражений
+│   		└── application.go         # Обработчики HTTP-запросов
+├── pkg/
+│		└── calc/
+│				├── calc_test.go
+│				└── calc.go
 └── README.md              # Описание проекта
 ```
 

@@ -67,6 +67,6 @@ func CalculateHandle(w http.ResponseWriter, r *http.Request){
 }
 
 func (a *Application) RunServer() error {
-	http.HandleFunc("/api/v1/calculation", CalculateHandle)
+	http.HandleFunc("/api/v1/calculate", CalculateHandle)
 	return http.ListenAndServe(":" + a.config.Addr, nil)
 }
