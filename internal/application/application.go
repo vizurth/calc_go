@@ -2,10 +2,9 @@ package application
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"os"
-
+	"strconv"
 	"github.com/vizurth/calc_go/pkg/calc"
 )
 
@@ -33,9 +32,11 @@ func New() *Application{
 }
 
 type Request struct{
-	Expression string
+	Expression string `json:"expression"`
 }
-
+type Result struct{
+	ResultString string `json:"result"`
+}
 
 func CalculateHandle(w http.ResponseWriter, r *http.Request){
 	request := new(Request)
@@ -46,11 +47,22 @@ func CalculateHandle(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	result, err := calc.Calc(request.Expression)
-	if err != nil{
-		fmt.Fprintf(w, "err: %s", err.Error())
-	} else {
-		fmt.Fprintf(w, "result: %f", result)
+	result, err1 := calc.Calc(request.Expression)
+	resCalcStr := strconv.FormatFloat(result, 'g', -1, 64)
+	resultJson := Result{ResultString: resCalcStr}
+	bytesJson, err2 := json.Marshal(resultJson)
+	if err2 != nil{
+
+	}
+	if err1 != nil{
+		w.WriteHeader(422)
+		w.Write([]byte(`{"error": "Expression is not valid"}`))
+	} else if err2 != nil{
+		w.WriteHeader(500)
+		w.Write([]byte(`{"error": "Internal server error"}`))
+	}else {
+		w.WriteHeader(200)
+		w.Write(bytesJson)
 	}
 }
 
