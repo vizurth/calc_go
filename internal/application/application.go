@@ -46,7 +46,7 @@ type ErrorJson struct{
 func CalculateHandle(w http.ResponseWriter, r *http.Request){
 	request := new(Request)
 	defer r.Body.Close()
-	
+
 	err := json.NewDecoder(r.Body).Decode(&request)
 	if err != nil{
 		http.Error(w, err.Error(), http.StatusBadRequest)

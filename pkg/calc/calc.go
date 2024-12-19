@@ -101,8 +101,6 @@ func Calc(expression string) (float64, error){
 		stack := make([]string, 0)
 		for i:=0; i<len(expressionByte); i++{
 			//дополнительная проверка на четность скобок
-			if string(expressionByte[i]) == "("{openingBrakets++}
-			if string(expressionByte[i]) == ")"{closingBrakets++}
 
 			if strings.Contains(numbers, string(expressionByte[i])){
 				numStr = append(numStr, expressionByte[i])
@@ -118,12 +116,14 @@ func Calc(expression string) (float64, error){
 
 
 			if string(expressionByte[i]) == "("{
+				openingBrakets++
 				inBraket := make([]byte, 0)
 				lenStr := 0
 LOOP:		for _, elem := range expressionByte[i+1:]{
 					inBraket = append(inBraket, elem)
 					lenStr++
 					if string(elem) == ")"{
+						closingBrakets++
 						break LOOP
 					}
 				}
@@ -133,7 +133,6 @@ LOOP:		for _, elem := range expressionByte[i+1:]{
 				stack = append(stack, temp)
 			}
 		}
-		// 10 + ))10
 		if (openingBrakets > 0 && closingBrakets == 0) || (openingBrakets == 0 && closingBrakets > 0) || ((openingBrakets+closingBrakets)%2 != 0){
 			return 0, fmt.Errorf("Expression is not valid")
 		}

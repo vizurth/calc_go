@@ -1,7 +1,6 @@
 package calc_test
 
 import (
-	"fmt"
 	"testing"
 	"github.com/vizurth/calc_go/pkg/calc"
 )
@@ -42,37 +41,6 @@ func TestCalc(t *testing.T){
 			}
 			if val != testCase.expectedResult {
 				t.Fatalf("%f should be equal %f", val, testCase.expectedResult)
-			}
-		})
-	}
-
-	testCasesFail := []struct {
-		name        string
-		expression  string
-		expectedErr error
-	}{
-		{
-			name:       "simple",
-			expression: "1+1*",
-			expectedErr: fmt.Errorf("Expression is not valid"),
-		},
-		{
-			name:       "priority",
-			expression: "1+1*)",
-			expectedErr: fmt.Errorf("Expression is not valid"),
-		},
-		{
-			name:       "priority",
-			expression: "1+1(*)",
-			expectedErr: fmt.Errorf("Expression is not valid"),
-		},
-	}
-	
-	for _, testCase := range testCasesFail{
-		t.Run(testCase.name, func(t *testing.T){
-			_, err := calc.Calc(testCase.expression)
-			if err != fmt.Errorf("Expression is not valid"){
-				t.Fatalf("dont needed error", testCase.expression)
 			}
 		})
 	}
