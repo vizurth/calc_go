@@ -40,7 +40,7 @@ func findSolution(stack []string) ([]string, error){
 			a, erra := strconv.ParseFloat(stack[counter-1],64)
 			b, errb := strconv.ParseFloat(stack[counter+1],64)
 			if erra != nil || errb != nil{
-				return []string{}, fmt.Errorf("err") 
+				return []string{}, fmt.Errorf("Expression is not valid")
 			}
 			switch stack[counter]{
 			case "*":

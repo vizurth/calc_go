@@ -2,9 +2,11 @@ package application
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"os"
 	"strconv"
+
 	"github.com/vizurth/calc_go/pkg/calc"
 )
 
@@ -37,10 +39,14 @@ type Request struct{
 type Result struct{
 	ResultString string `json:"result"`
 }
+type ErrorJson struct{
+	InnerError string `json:"error"`
+}
 
 func CalculateHandle(w http.ResponseWriter, r *http.Request){
 	request := new(Request)
 	defer r.Body.Close()
+	
 	err := json.NewDecoder(r.Body).Decode(&request)
 	if err != nil{
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -51,15 +57,21 @@ func CalculateHandle(w http.ResponseWriter, r *http.Request){
 	resCalcStr := strconv.FormatFloat(result, 'g', -1, 64)
 	resultJson := Result{ResultString: resCalcStr}
 	bytesJson, err2 := json.Marshal(resultJson)
-	if err2 != nil{
 
-	}
 	if err1 != nil{
+		var errorInJson ErrorJson
+		errorInJson.InnerError = fmt.Sprint(err1)
+		bytesError, _ := json.Marshal(errorInJson)
+
 		w.WriteHeader(422)
-		w.Write([]byte(`{"error": "Expression is not valid"}`))
+		w.Write(bytesError)
 	} else if err2 != nil{
+		var errorInJson ErrorJson
+		errorInJson.InnerError = fmt.Sprint(err1)
+		bytesError, _ := json.Marshal(errorInJson)
+
 		w.WriteHeader(500)
-		w.Write([]byte(`{"error": "Internal server error"}`))
+		w.Write(bytesError)
 	}else {
 		w.WriteHeader(200)
 		w.Write(bytesJson)
